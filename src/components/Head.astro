@@ -13,6 +13,7 @@ const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefi
 <title>{title}</title>
 <meta name="description" content={description} />
 <meta name="robots" content={noindex || !site.ready ? 'noindex,follow' : 'index,follow'} />
+{site.googleSiteVerification && <meta name="google-site-verification" content={site.googleSiteVerification} />}
 {canonical && <link rel="canonical" href={canonical} />}
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
@@ -20,6 +21,7 @@ const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefi
 <meta property="og:locale" content="ja_JP" />
 <meta property="og:site_name" content={site.name} />
 {canonical && <meta property="og:url" content={canonical} />}
+<meta name="twitter:card" content="summary" />
 <meta name="theme-color" content="#174c3c" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
