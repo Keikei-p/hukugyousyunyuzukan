@@ -1,0 +1,27 @@
+{
+  "provider": "none",
+  "adsense": {
+    "client": "",
+    "slots": {
+      "home": "",
+      "article": ""
+    },
+    "adsTxt": ""
+  },
+  "banners": {
+    "home": {
+      "title": "",
+      "description": "",
+      "url": "",
+      "image": "",
+      "imageAlt": ""
+    },
+    "article": {
+      "title": "",
+      "description": "",
+      "url": "",
+      "image": "",
+      "imageAlt": ""
+    }
+  }
+}

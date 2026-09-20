@@ -1,0 +1,20 @@
+---
+import config from '../data/monetization.json';
+import { resolveAd } from '../lib/monetization.mjs';
+interface Props { placement: 'home' | 'article'; }
+const { placement } = Astro.props;
+const ad = resolveAd(config, placement);
+---
+{ad && <aside class="ad-slot" aria-label="広告" data-placement={placement}>
+  <p class="ad-label">広告</p>
+  {ad.type === 'banner' ? <a class="banner" href={ad.url} rel="sponsored nofollow noopener">
+    {ad.image && <img src={ad.image} alt={ad.imageAlt} loading="lazy" decoding="async" />}
+    <strong>{ad.title}</strong>{ad.description && <span>{ad.description}</span>}<span class="ad-cta">広告の詳細を見る ↗</span>
+  </a> : <>
+    <ins class="adsbygoogle" style="display:block" data-ad-client={ad.client} data-ad-slot={ad.slot} data-ad-format="auto" data-full-width-responsive="true"></ins>
+    <script is:inline>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </>}
+</aside>}
+<style>
+.ad-slot{margin:32px auto;max-width:1096px;min-width:0;padding:18px;border:1px solid #dfe5d7;border-radius:8px;background:#fff}.ad-label{font-size:11px;color:#61705a;margin:0 0 12px;text-align:center}.banner{display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;color:#24543b;text-decoration:none;overflow-wrap:anywhere}.banner:hover .ad-cta{text-decoration:underline}.banner img{max-width:100%;height:auto;border-radius:5px}.banner strong{font-size:18px}.banner span{font-size:13px}.ad-cta{font-weight:700}.adsbygoogle{width:100%}
+</style>

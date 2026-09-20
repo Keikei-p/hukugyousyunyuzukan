@@ -1,0 +1,26 @@
+[
+  {
+    "id": "crowdworks",
+    "name": "クラウドワークス",
+    "url": "https://crowdworks.jp/",
+    "affiliateUrl": "",
+    "description": "仕事の募集内容を確認するためのクラウドソーシングサービスの例です。",
+    "checked": "2026-09-20"
+  },
+  {
+    "id": "coconala",
+    "name": "ココナラ",
+    "url": "https://coconala.com/lp/provider",
+    "affiliateUrl": "",
+    "description": "得意なスキルや経験をサービスとして提供する方法を確認できます。",
+    "checked": "2026-09-20"
+  },
+  {
+    "id": "mercari",
+    "name": "メルカリ",
+    "url": "https://jp.mercari.com/",
+    "affiliateUrl": "",
+    "description": "不要品の出品先を検討するためのフリマサービスの例です。",
+    "checked": "2026-09-20"
+  }
+]

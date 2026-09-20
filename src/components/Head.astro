@@ -1,0 +1,27 @@
+---
+import site from '../data/site.json';
+import ads from '../data/monetization.json';
+import { resolveAd } from '../lib/monetization.mjs';
+interface Props { title: string; description: string; noindex?: boolean; adPlacement?: string; }
+const { title, description, noindex = false, adPlacement = "" } = Astro.props;
+const ad = resolveAd(ads, adPlacement);
+const canonical = site.url ? new URL(Astro.url.pathname, site.url).href : undefined;
+---
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<title>{title}</title>
+<meta name="description" content={description} />
+<meta name="robots" content={noindex || !site.ready ? 'noindex,follow' : 'index,follow'} />
+{canonical && <link rel="canonical" href={canonical} />}
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="ja_JP" />
+<meta property="og:site_name" content={site.name} />
+{canonical && <meta property="og:url" content={canonical} />}
+<meta name="theme-color" content="#174c3c" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+{ads.adsense.client && <meta name="google-adsense-account" content={ads.adsense.client} />}
+{ad?.type === 'adsense' && <script is:inline async src={'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=' + ad.client} crossorigin="anonymous"></script>}

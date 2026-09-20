@@ -1,0 +1,25 @@
+---
+import { jobs } from '../../data/jobs';
+import services from '../../data/services.json';
+import Page from '../../layouts/Page.astro';
+import AdSlot from '../../components/AdSlot.astro';
+export function getStaticPaths() { return jobs.map(job => ({ params: { slug: job.slug }, props: { job } })); }
+const { job } = Astro.props;
+const links = services.filter(service => job.services.includes(service.id));
+const hasAds = links.some(service => service.affiliateUrl);
+const related = jobs.filter(other => other.slug !== job.slug).sort((a,b) => b.tags.filter(tag => job.tags.includes(tag)).length - a.tags.filter(tag => job.tags.includes(tag)).length).slice(0,2);
+---
+<Page adPlacement="article" title={job.name + 'の始め方・仕事内容・注意点'} description={job.description + '必要なもの、始める手順、費用の考え方と注意点を紹介します。'}>
+<nav class="breadcrumb" aria-label="パンくず"><a href="/">ホーム</a><span aria-hidden="true">/</span><span aria-current="page">{job.name}</span></nav>
+{hasAds && <p class="ad">広告：このページにはアフィリエイトリンクが含まれます。リンク経由の申込み等により、運営者が報酬を受け取る場合があります。</p>}
+<div class="article-head"><p class="eyebrow">SIDE JOB GUIDE · {job.category}</p><h1>{job.name}の始め方</h1><p class="lead">{job.description}</p><ul class="tags">{job.tags.map(tag => <li>{tag}</li>)}</ul><p class="muted">記事更新日：<time datetime={job.updated}>{job.updated}</time> · <a href="/editorial/">編集方針</a></p></div>
+<nav class="toc" aria-label="この記事の目次"><a href="#work">仕事内容</a><a href="#start">始める手順</a><a href="#cost">必要なもの・費用</a><a href="#cautions">注意点</a><a href="#services">サービスの例</a><a href="#faq">よくある質問</a></nav>
+<section id="work" class="panel"><h2>どんな仕事？</h2><p>{job.work}</p><h3>こんな人に向いています</h3><ul>{job.suitable.map(item => <li>{item}</li>)}</ul></section>
+<section id="start" class="panel"><h2>始めるための4ステップ</h2><ol class="steps">{job.steps.map(step => <li>{step}</li>)}</ol><div class="notice"><strong>まず今日、やってみること</strong><br />{job.first}</div></section>
+<section id="cost" class="panel"><h2>必要なものと費用の考え方</h2><dl><dt>用意するもの</dt><dd>{job.equipment}</dd></dl><p>{job.cost}</p><p class="muted">収入はスキル、作業範囲、案件条件などで変わります。このサイトでは根拠のない月収目安や成果の保証を掲載しません。</p></section>
+<section id="cautions" class="panel"><h2>始める前に確認したいこと</h2><ul>{job.cautions.map(item => <li>{item}</li>)}</ul><p><a href="/guide/">副業を始める前の共通チェックも読む →</a></p></section>
+<section id="services" class="panel"><h2>仕事・出品先を探すサービスの例</h2><p class="muted">利用を保証・推奨するランキングではありません。募集内容や利用条件は各公式サイトで確認してください。</p>{links.map(service => <div class="service"><h3>{service.name}</h3><p>{service.description}</p><a href={service.affiliateUrl || service.url} rel={service.affiliateUrl ? 'sponsored noopener' : 'noopener'}>{service.affiliateUrl ? '広告・PR：' : ''}{service.name}の公式サイトへ ↗</a><p class="muted">公式情報の確認日：{service.checked}</p></div>)}</section>
+<section id="faq" class="panel"><h2>よくある質問</h2>{job.faq.map(([question,answer]) => <details><summary>{question}</summary><p>{answer}</p></details>)}</section>
+<AdSlot placement="article" />
+<section aria-labelledby="related-title"><h2 id="related-title">ほかの働き方も見てみる</h2><div class="grid">{related.map(other => <a class="related" href={'/jobs/' + other.slug + '/'}><span>{other.category}</span><strong>{other.name} →</strong><span>{other.description}</span></a>)}</div></section><p style="margin-top:28px"><a href="/#search">← 副業一覧に戻る</a></p>
+</Page>

@@ -1,0 +1,26 @@
+{
+  "name": "fukugyo-zukan",
+  "type": "module",
+  "version": "0.0.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check:content": "node scripts/check-content.mjs",
+    "check:release": "node scripts/check-content.mjs --release",
+    "prebuild": "npm run check:content",
+    "check:output": "node scripts/check-output.mjs",
+    "verify": "npm test && npm run build && npm run check:output",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}
