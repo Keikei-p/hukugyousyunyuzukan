@@ -26,3 +26,9 @@ provider を none にして再公開します。バナー・AdSenseの表示とA
 - ads.txt: https://support.google.com/adsense/answer/12171612?hl=ja
 
 自動更新タスクは広告を勝手に有効にしたり、発行ID・広告URLを変更しません。新しい広告を追加するときは本人の依頼と発行情報を確認します。
+
+## 申請前の確認（2026-09-22）
+現在の workers.dev のURLでAdSenseへ登録できるかは未確認です。GoogleのURL案内にはサブドメインの制限があるため、申請画面での受付可否を確認してください。受付不可の場合は独自ドメインの取得・接続を本人と相談し、購入は本人の承認後に行います。
+- URLの条件: https://support.google.com/adsense/answer/2784438?hl=ja
+- 資格要件: https://support.google.com/adsense/answer/9724?hl=ja
+記事数だけで審査合格を判断しません。本人による記事内容の最終確認、アカウント登録、必要な本人・支払情報の入力と規約同意は未完了です。

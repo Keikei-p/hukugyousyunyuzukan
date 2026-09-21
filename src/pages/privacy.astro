@@ -9,12 +9,12 @@ const hasAffiliate = services.some(service => service.affiliateUrl);
 <nav class="breadcrumb" aria-label="パンくず"><a href="/">ホーム</a><span aria-hidden="true">/</span><span aria-current="page">プライバシーポリシー</span></nav>
 <h1>プライバシーポリシー</h1><p>{site.operator}（以下「当運営者」）は、副業図鑑における情報の取り扱いを次のとおり定めます。</p>
 <section class="panel"><h2>お問い合わせで受け取る情報</h2><p>メールでお問い合わせいただいた場合、送信元のメールアドレス、お名前（記載がある場合）、お問い合わせ内容を、回答・情報訂正・必要な連絡のために利用します。</p><p>受け取った情報は対応に必要な範囲で管理し、不要となった情報は適切に削除します。本人の同意なく第三者に提供することはありません。ただし、法令に基づく場合などを除きます。</p><p>ご自身の情報の確認・訂正・削除等のご相談は、下記の窓口へご連絡ください。ご本人からのご連絡であることを確認したうえで、状況に応じて対応します。</p></section>
-<section class="panel"><h2>検索とアクセス情報</h2><p>当サイトには会員登録、決済、問い合わせ送信フォームはありません。検索や絞り込みはブラウザ内で処理し、専用の検索履歴データベースは設けていません。検索条件はページのURLに反映されるため、URLを共有すると条件も伝わります。</p><p>当サイトはOpenAIのSitesを利用して配信しています。閲覧時には、配信に必要なIPアドレス、リクエストしたURL、ブラウザに関する情報などが公開基盤へ送信されます。公開基盤による情報の取り扱いは、提供元の方針もご確認ください。</p><p><a href="https://openai.com/policies/privacy-policy/">OpenAIのプライバシーポリシー</a></p><p>当運営者が独自に設置したアクセス解析ツールは現在ありません。</p></section>
+<section class="panel"><h2>検索とアクセス情報</h2><p>当サイトには会員登録、決済、問い合わせ送信フォームはありません。検索や絞り込みはブラウザ内で処理し、専用の検索履歴データベースは設けていません。検索条件はページのURLに反映されるため、URLを共有すると条件も伝わります。</p><p>当サイトはCloudflare Workersを利用して配信しています。閲覧時には、配信に必要なIPアドレス、リクエストしたURL、ブラウザに関する情報などが公開基盤へ送信されます。公開基盤による情報の取り扱いは、提供元の方針もご確認ください。</p><p><a href="https://www.cloudflare.com/privacypolicy/">Cloudflareのプライバシーポリシー</a></p><p>当運営者が独自に設置したアクセス解析ツールは現在ありません。</p></section>
 <section class="panel"><h2>広告・Cookieについて</h2>
 {ads.provider === 'adsense' ? <><p>当サイトではGoogle AdSenseによる広告を表示しています。Googleなどの第三者配信事業者は、Cookie等を使用して、過去の閲覧情報に基づく広告の配信や効果の測定を行う場合があります。</p><p>情報の利用方法と広告設定の変更については、<a href="https://policies.google.com/technologies/ads?hl=ja">Googleの広告に関する説明</a>および<a href="https://myadcenter.google.com/">マイ アド センター</a>をご確認ください。同意に関するメッセージが表示される場合は、その画面で選択できます。</p></> : <p>現在、Google AdSenseなどの第三者広告配信スクリプトは読み込んでいません。当運営者のサイトコードから広告配信用のCookieを設定する処理も行っていません。</p>}
 {ads.provider === 'banner' && <p>広告バナーには「広告」と明示しています。リンク先へ移動した後の情報の取り扱いは、広告主のサイトをご確認ください。</p>}
 <p>{hasAffiliate ? '一部のリンクにはアフィリエイト広告を利用しています。リンク先のサービスや広告事業者が成果計測にCookie等を利用する場合があります。' : '現在、アフィリエイト広告リンクは掲載していません。'}</p><p>広告の表示方針は<a href="/editorial/">編集・広告方針</a>をご覧ください。</p></section>
 <section class="panel"><h2>外部サイトについて</h2><p>外部サイトへ移動した後の個人情報の取り扱いは、それぞれの運営者のプライバシーポリシーに従います。</p></section>
 <section class="panel"><h2>運営者・お問い合わせ窓口</h2><dl><dt>運営者</dt><dd>{site.operator}</dd><dt>連絡先</dt><dd><a href={'mailto:' + site.email}>{site.email}</a></dd></dl></section>
-<section class="panel"><h2>方針の変更</h2><p>サイトの機能や利用サービスの変更に合わせて、このページを更新します。</p><p class="muted">制定・最終更新日：2026年9月20日</p></section>
+<section class="panel"><h2>方針の変更</h2><p>サイトの機能や利用サービスの変更に合わせて、このページを更新します。</p><p class="muted">制定日：2026年9月20日 · 最終更新日：2026年9月22日</p></section>
 </Page>
