@@ -15,6 +15,6 @@ const hasAffiliate = services.some(service => service.affiliateUrl);
 {ads.provider === 'banner' && <p>広告バナーには「広告」と明示しています。リンク先へ移動した後の情報の取り扱いは、広告主のサイトをご確認ください。</p>}
 <p>{hasAffiliate ? '一部のリンクにはアフィリエイト広告を利用しています。リンク先のサービスや広告事業者が成果計測にCookie等を利用する場合があります。' : '現在、アフィリエイト広告リンクは掲載していません。'}</p><p>広告の表示方針は<a href="/editorial/">編集・広告方針</a>をご覧ください。</p></section>
 <section class="panel"><h2>外部サイトについて</h2><p>外部サイトへ移動した後の個人情報の取り扱いは、それぞれの運営者のプライバシーポリシーに従います。</p></section>
-<section class="panel"><h2>運営者・お問い合わせ窓口</h2><dl><dt>運営者</dt><dd>{site.operator}</dd><dt>連絡先</dt><dd><a href={'mailto:' + site.email}>{site.email}</a></dd></dl></section>
+<section class="panel"><h2>運営者・お問い合わせ窓口</h2><dl><dt>運営者</dt><dd>{site.operator}</dd><dt>連絡先</dt><dd><a href="/contact/">お問い合わせページ</a></dd></dl></section>
 <section class="panel"><h2>方針の変更</h2><p>サイトの機能や利用サービスの変更に合わせて、このページを更新します。</p><p class="muted">制定日：2026年9月20日 · 最終更新日：2026年9月22日</p></section>
 </Page>
