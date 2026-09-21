@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { validateMonetization, resolveAd } from '../src/lib/monetization.mjs';
+import { validateMonetization, resolveAd } from '../../src/lib/monetization.mjs';
 const base=()=>({provider:'none',adsense:{client:'',slots:{home:'',article:''},adsTxt:''},banners:{home:{title:'',description:'',url:'',image:'',imageAlt:''},article:{title:'',description:'',url:'',image:'',imageAlt:''}}});
 test('disabled mode hides all configured placements',()=>{const c=base();c.banners.home={title:'テスト',description:'',url:'https://example.com/',image:'',imageAlt:''};validateMonetization(c);assert.equal(resolveAd(c,'home'),null);assert.equal(resolveAd(c,'article'),null);});
 test('banner mode renders only configured placement',()=>{const c=base();c.provider='banner';c.banners.home={title:'テスト広告',description:'テスト',url:'https://example.com/',image:'',imageAlt:''};validateMonetization(c);assert.equal(resolveAd(c,'home').type,'banner');assert.equal(resolveAd(c,'article'),null);});

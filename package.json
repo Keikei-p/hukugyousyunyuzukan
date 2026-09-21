@@ -12,10 +12,12 @@
     "astro": "astro",
     "check:content": "node scripts/check-content.mjs",
     "check:release": "node scripts/check-content.mjs --release",
-    "prebuild": "npm run check:content",
+    "prebuild": "npm test && npm run check:release",
     "check:output": "node scripts/check-output.mjs",
-    "verify": "npm test && npm run build && npm run check:output",
-    "test": "node --test tests/*.test.mjs"
+    "verify": "npm run build",
+    "test": "node scripts/run-tests.mjs",
+    "postbuild": "npm run check:output && node scripts/release-id.mjs",
+    "check:live": "node scripts/check-live.mjs"
   },
   "dependencies": {
     "astro": "^7.3.3"
