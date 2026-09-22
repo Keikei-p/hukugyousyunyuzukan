@@ -29,12 +29,12 @@ const lowCostCount = items.filter(job => job.startCost.startsWith('低')).length
 
 <section class="panel">
   <h2>このカテゴリの特徴</h2>
-  <div class="facts-grid category-facts">
+  <dl class="facts-grid category-facts">
     <div><dt>掲載数</dt><dd>{items.length}件</dd></div>
     <div><dt>初級</dt><dd>{beginnerCount}件</dd></div>
     <div><dt>スマホ適性 中〜高</dt><dd>{smartphoneCount}件</dd></div>
     <div><dt>初期費用感「低」から</dt><dd>{lowCostCount}件</dd></div>
-  </div>
+  </dl>
   <p class="muted">難易度や費用感は、仕事内容を比べるために編集部が整理した目安です。案件や利用サービスによって条件は変わります。</p>
 </section>
 
@@ -44,14 +44,14 @@ const lowCostCount = items.filter(job => job.startCost.startsWith('低')).length
     {items.map(job => (
       <article class="job-card">
         <div class="job-top"><span class="job-icon" aria-hidden="true">{job.icon}</span><span>{job.difficulty}</span></div>
-        <h3><a href={'/jobs/' + job.slug + '/'}>{job.name}</a></h3>
+        <h3><a data-track="job-open" data-label={job.slug} href={'/jobs/' + job.slug + '/'}>{job.name}</a></h3>
         <p>{job.description}</p>
         <dl class="mini">
           <div><dt>仕事タイプ</dt><dd>{job.workStyle}</dd></div>
           <div><dt>スマホ</dt><dd>{job.smartphone}</dd></div>
           <div><dt>初期費用感</dt><dd>{job.startCost}</dd></div>
         </dl>
-        <a class="card-link" href={'/jobs/' + job.slug + '/'}>{job.name}を詳しく見る →</a>
+        <a class="card-link" data-track="job-open" data-label={job.slug} href={'/jobs/' + job.slug + '/'}>{job.name}を詳しく見る →</a>
       </article>
     ))}
   </div>
@@ -60,7 +60,7 @@ const lowCostCount = items.filter(job => job.startCost.startsWith('低')).length
 <section class="panel choice">
   <h2>まだ決めきれないなら</h2>
   <p>カテゴリだけでは迷う場合は、使える端末・時間・仕事の進め方から候補を絞る「副業診断」も使えます。</p>
-  <p><a class="button" href="/diagnosis/">副業診断をやってみる</a> <a href="/#search">条件検索で探す →</a></p>
+  <p><a class="button" data-track="diagnosis-entry" data-label="category" href="/diagnosis/">副業診断をやってみる</a> <a href="/#search">条件検索で探す →</a></p>
 </section>
 
 <style>
