@@ -151,8 +151,7 @@ const interestGroups = [
     summary.textContent = `回答条件に近かったのは「${names}」です。気になるものは詳細ページで、向き・不向きや練習課題まで確認できます。`;
     result.hidden = false;
     result.scrollIntoView({behavior:'smooth', block:'start'});
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event:'zukan_interaction', action:'diagnosis_complete', labels: scored.slice(0,3).map(({card}) => card.dataset.slug)});
+    window.dispatchEvent(new CustomEvent('zukan:track', { detail: { action: 'diagnosis_complete', label: scored.slice(0,3).map(({card}) => card.dataset.slug).join('|') } }));
   });
 
   retry.addEventListener('click', () => {
