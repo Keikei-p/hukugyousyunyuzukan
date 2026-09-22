@@ -1,0 +1,162 @@
+---
+import Page from '../layouts/Page.astro';
+import { jobs } from '../data/jobs';
+
+const interestGroups = [
+  { value: 'writing', label: '文章・調べる', categories: ['ライティング','AI','コンテンツ'] },
+  { value: 'creative', label: '動画・デザイン', categories: ['クリエイティブ','デザイン'] },
+  { value: 'support', label: '事務・サポート', categories: ['事務・サポート'] },
+  { value: 'web', label: 'Web・IT', categories: ['Web制作','IT・開発'] },
+  { value: 'sns', label: 'SNS', categories: ['SNS'] },
+  { value: 'sell', label: '販売・教える', categories: ['スキル販売','物販','EC・物販','教育'] },
+  { value: 'any', label: 'まだ分からない', categories: [] }
+];
+---
+<Page title="副業診断｜条件から向いていそうな副業を3つ探す" description="スマホ・パソコン、経験、仕事の進め方、興味、AI活用の5問から、副業収入図鑑に掲載している副業の中で条件に近い候補を3つ表示します。">
+<nav class="breadcrumb" aria-label="パンくず"><a href="/">ホーム</a><span aria-hidden="true">/</span><span aria-current="page">副業診断</span></nav>
+
+<div class="article-head">
+  <p class="eyebrow">SIDE JOB FINDER</p>
+  <h1>5問で探す、副業診断</h1>
+  <p class="lead">「何が向いているか分からない」を、今の環境から絞ります。適性検査ではなく、30種類の副業を探すための入口です。</p>
+</div>
+
+<form id="diagnosis" class="diagnosis" aria-describedby="diagnosis-note">
+  <fieldset>
+    <legend><span>01</span> 主に使える端末は？</legend>
+    <label><input type="radio" name="device" value="phone" required />スマホ中心</label>
+    <label><input type="radio" name="device" value="pc" />パソコン中心</label>
+    <label><input type="radio" name="device" value="both" />どちらも使える</label>
+  </fieldset>
+
+  <fieldset>
+    <legend><span>02</span> 今の経験に近いのは？</legend>
+    <label><input type="radio" name="level" value="beginner" required />まず未経験から試したい</label>
+    <label><input type="radio" name="level" value="learn" />少し勉強してからでもOK</label>
+    <label><input type="radio" name="level" value="challenge" />難しめでも興味を優先したい</label>
+  </fieldset>
+
+  <fieldset>
+    <legend><span>03</span> 仕事の進め方は？</legend>
+    <label><input type="radio" name="style" value="案件型" required />依頼ごとに仕事を受けたい</label>
+    <label><input type="radio" name="style" value="継続案件型" />継続して同じ相手を支えたい</label>
+    <label><input type="radio" name="style" value="販売型" />自分の商品・サービスを売りたい</label>
+    <label><input type="radio" name="style" value="運営型" />時間をかけて育てたい</label>
+    <label><input type="radio" name="style" value="any" />まだ決めていない</label>
+  </fieldset>
+
+  <fieldset>
+    <legend><span>04</span> 興味が近いのは？</legend>
+    {interestGroups.map(group => <label><input type="radio" name="interest" value={group.value} data-categories={group.categories.join('|')} required />{group.label}</label>)}
+  </fieldset>
+
+  <fieldset>
+    <legend><span>05</span> AIは使ってみたい？</legend>
+    <label><input type="radio" name="ai" value="yes" required />使えるなら活用したい</label>
+    <label><input type="radio" name="ai" value="no" />AIなしでもできる仕事を優先</label>
+    <label><input type="radio" name="ai" value="any" />どちらでもいい</label>
+  </fieldset>
+
+  <p id="diagnosis-note" class="muted">診断結果は収益性や将来性の順位ではありません。回答条件との近さで候補を表示します。</p>
+  <button class="button submit" type="submit">候補を3つ見る</button>
+</form>
+
+<section id="result" class="result" hidden aria-live="polite">
+  <p class="eyebrow">YOUR MATCHES</p>
+  <h2>条件に近い副業</h2>
+  <p id="result-summary"></p>
+  <div id="result-list" class="result-list">
+    {jobs.map(job => (
+      <article
+        class="result-card"
+        hidden
+        data-title={job.name}
+        data-slug={job.slug}
+        data-category={job.category}
+        data-difficulty={job.difficulty}
+        data-workstyle={job.workStyle}
+        data-smartphone={job.smartphone}
+        data-aiuse={job.aiUse}
+        data-score={job.score}
+      >
+        <span class="result-category">{job.category}</span>
+        <h3>{job.name}</h3>
+        <p>{job.description}</p>
+        <dl>
+          <div><dt>難易度</dt><dd>{job.difficulty}</dd></div>
+          <div><dt>スマホ適性</dt><dd>{job.smartphone}</dd></div>
+          <div><dt>仕事タイプ</dt><dd>{job.workStyle}</dd></div>
+        </dl>
+        <a data-track="diagnosis-result" data-label={job.slug} href={'/jobs/' + job.slug + '/'}>詳しく見る →</a>
+      </article>
+    ))}
+  </div>
+  <div class="result-actions"><button id="retry" type="button">回答を変える</button><a href="/#search">条件検索も使う →</a></div>
+</section>
+
+<style>
+.diagnosis{display:grid;gap:16px}.diagnosis fieldset{border:1px solid #dce4d5;border-radius:12px;background:#fff;padding:22px;margin:0}.diagnosis legend{font-weight:800;padding:0 8px}.diagnosis legend span{color:#78905a;font-size:11px;margin-right:8px}.diagnosis label{display:block;border-top:1px solid #eef1e9;padding:11px 5px;cursor:pointer}.diagnosis label:first-of-type{border-top:0}.diagnosis input{margin-right:10px}.submit{border:0;cursor:pointer;justify-self:start}.result{margin-top:44px;padding-top:35px;border-top:1px solid #dfe5d8}.result-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.result-card{border:1px solid #dce4d5;background:#fff;border-radius:12px;padding:20px}.result-card[hidden]{display:none}.result-category{font-size:11px;color:#6f796b}.result-card h3{margin:7px 0}.result-card p{font-size:13px;color:#617067}.result-card dl{display:grid;gap:6px}.result-card dl div{display:flex;justify-content:space-between;gap:12px;border-top:1px solid #edf0e8;padding-top:6px}.result-card dt,.result-card dd{font-size:11px;margin:0}.result-card dd{font-weight:700}.result-card a{font-weight:700;font-size:13px}.result-actions{display:flex;align-items:center;gap:18px;margin-top:22px}.result-actions button{border:1px solid #cfd8cb;background:#fff;border-radius:6px;padding:8px 13px}@media(max-width:700px){.result-list{grid-template-columns:1fr}.diagnosis fieldset{padding:18px}}
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#diagnosis')!;
+  const result = document.querySelector<HTMLElement>('#result')!;
+  const summary = document.querySelector<HTMLElement>('#result-summary')!;
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('.result-card'));
+  const retry = document.querySelector<HTMLButtonElement>('#retry')!;
+
+  const rankDifficulty = (value: string) => value === '初級' ? 1 : value === '初中級' ? 2 : 3;
+  const phoneRank = (value: string) => value === '高' ? 3 : value === '中' ? 2 : value === '補助' ? 1 : 0;
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const device = String(data.get('device'));
+    const level = String(data.get('level'));
+    const style = String(data.get('style'));
+    const ai = String(data.get('ai'));
+    const interestInput = form.querySelector<HTMLInputElement>('input[name="interest"]:checked')!;
+    const categories = (interestInput.dataset.categories || '').split('|').filter(Boolean);
+
+    const scored = cards.map(card => {
+      let points = 0;
+      const difficulty = rankDifficulty(card.dataset.difficulty || '');
+      const phone = phoneRank(card.dataset.smartphone || '');
+      if (device === 'phone') points += phone * 3;
+      if (device === 'pc') points += phone <= 1 ? 4 : 2;
+      if (device === 'both') points += 3;
+
+      if (level === 'beginner') points += difficulty === 1 ? 6 : difficulty === 2 ? 3 : 0;
+      if (level === 'learn') points += difficulty <= 2 ? 5 : 2;
+      if (level === 'challenge') points += 3;
+
+      if (style === 'any') points += 2;
+      else if (card.dataset.workstyle === style) points += 6;
+
+      if (!categories.length) points += 2;
+      else if (categories.includes(card.dataset.category || '')) points += 7;
+
+      const aiUse = card.dataset.aiuse || '';
+      if (ai === 'yes') points += ['高','相性あり'].includes(aiUse) ? 5 : aiUse === '補助可' ? 2 : 0;
+      if (ai === 'no') points += aiUse === '高' ? 0 : 3;
+      if (ai === 'any') points += 2;
+
+      points += Number(card.dataset.score || 0) / 100;
+      return { card, points };
+    }).sort((a,b) => b.points - a.points);
+
+    cards.forEach(card => { card.hidden = true; });
+    scored.slice(0,3).forEach(({card}) => { card.hidden = false; });
+    const names = scored.slice(0,3).map(({card}) => card.dataset.title).join('・');
+    summary.textContent = `回答条件に近かったのは「${names}」です。気になるものは詳細ページで、向き・不向きや練習課題まで確認できます。`;
+    result.hidden = false;
+    result.scrollIntoView({behavior:'smooth', block:'start'});
+    window.dispatchEvent(new CustomEvent('zukan:track', { detail: { action: 'diagnosis_complete', label: scored.slice(0,3).map(({card}) => card.dataset.slug).join('|') } }));
+  });
+
+  retry.addEventListener('click', () => {
+    result.hidden = true;
+    form.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+</script>
+</Page>

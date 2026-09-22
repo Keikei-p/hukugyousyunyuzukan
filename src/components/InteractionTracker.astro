@@ -1,0 +1,20 @@
+<script>
+  const sendInteraction = (action: string, label = '', extra: Record<string, unknown> = {}) => {
+    const detail = { action, label, path: location.pathname, ...extra };
+    const target = window as Window & { dataLayer?: Array<Record<string, unknown>> };
+    target.dataLayer = target.dataLayer || [];
+    target.dataLayer.push({ event: 'zukan_interaction', ...detail });
+    window.dispatchEvent(new CustomEvent('zukan:interaction', { detail }));
+  };
+
+  document.addEventListener('click', event => {
+    const target = event.target instanceof Element ? event.target.closest<HTMLElement>('[data-track]') : null;
+    if (!target) return;
+    sendInteraction(target.dataset.track || 'click', target.dataset.label || target.textContent?.trim().slice(0, 80) || '');
+  });
+
+  window.addEventListener('zukan:track', event => {
+    const custom = event as CustomEvent<{ action?: string; label?: string; extra?: Record<string, unknown> }>;
+    sendInteraction(custom.detail?.action || 'interaction', custom.detail?.label || '', custom.detail?.extra || {});
+  });
+</script>
