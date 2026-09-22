@@ -1,0 +1,69 @@
+---
+import Page from '../../layouts/Page.astro';
+import { jobs } from '../../data/jobs';
+import { categories } from '../../data/categories';
+
+export function getStaticPaths() {
+  return categories.map(category => ({
+    params: { slug: category.slug },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props;
+const items = jobs.filter(job => job.category === category.name);
+const beginnerCount = items.filter(job => job.difficulty === '初級').length;
+const smartphoneCount = items.filter(job => ['高','中'].includes(job.smartphone)).length;
+const lowCostCount = items.filter(job => job.startCost.startsWith('低')).length;
+---
+
+<Page title={category.name + 'の副業一覧・始め方'} description={category.description + '仕事内容、難易度、スマホ適性、初期費用感を見比べながら探せます。'}>
+<nav class="breadcrumb" aria-label="パンくず"><a href="/">ホーム</a><span aria-hidden="true">/</span><span>カテゴリ</span><span aria-hidden="true">/</span><span aria-current="page">{category.name}</span></nav>
+
+<div class="article-head">
+  <p class="eyebrow">SIDE JOB CATEGORY</p>
+  <h1>{category.name}の副業</h1>
+  <p class="lead">{category.description}</p>
+  <p class="muted">{items.length}種類を掲載中。収益額の順位ではなく、仕事内容と始め方を比較するための一覧です。</p>
+</div>
+
+<section class="panel">
+  <h2>このカテゴリの特徴</h2>
+  <div class="facts-grid category-facts">
+    <div><dt>掲載数</dt><dd>{items.length}件</dd></div>
+    <div><dt>初級</dt><dd>{beginnerCount}件</dd></div>
+    <div><dt>スマホ適性 中〜高</dt><dd>{smartphoneCount}件</dd></div>
+    <div><dt>初期費用感「低」から</dt><dd>{lowCostCount}件</dd></div>
+  </div>
+  <p class="muted">難易度や費用感は、仕事内容を比べるために編集部が整理した目安です。案件や利用サービスによって条件は変わります。</p>
+</section>
+
+<section aria-labelledby="jobs-title">
+  <h2 id="jobs-title">{category.name}の副業一覧</h2>
+  <div class="job-grid">
+    {items.map(job => (
+      <article class="job-card">
+        <div class="job-top"><span class="job-icon" aria-hidden="true">{job.icon}</span><span>{job.difficulty}</span></div>
+        <h3><a href={'/jobs/' + job.slug + '/'}>{job.name}</a></h3>
+        <p>{job.description}</p>
+        <dl class="mini">
+          <div><dt>仕事タイプ</dt><dd>{job.workStyle}</dd></div>
+          <div><dt>スマホ</dt><dd>{job.smartphone}</dd></div>
+          <div><dt>初期費用感</dt><dd>{job.startCost}</dd></div>
+        </dl>
+        <a class="card-link" href={'/jobs/' + job.slug + '/'}>{job.name}を詳しく見る →</a>
+      </article>
+    ))}
+  </div>
+</section>
+
+<section class="panel choice">
+  <h2>まだ決めきれないなら</h2>
+  <p>カテゴリだけでは迷う場合は、使える端末・時間・仕事の進め方から候補を絞る「副業診断」も使えます。</p>
+  <p><a class="button" href="/diagnosis/">副業診断をやってみる</a> <a href="/#search">条件検索で探す →</a></p>
+</section>
+
+<style>
+.job-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.job-card{background:#fff;border:1px solid #dce4d5;border-radius:12px;padding:22px}.job-top{display:flex;align-items:center;justify-content:space-between;color:#6d786b;font-size:12px}.job-icon{display:grid;place-items:center;width:40px;height:40px;border-radius:9px;background:#eef2e6;color:#355d45;font-size:22px}.job-card h3{margin:16px 0 8px}.job-card p{font-size:13px;color:#607064}.mini{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#e4e9df;border-radius:8px;overflow:hidden;margin:16px 0}.mini>div{background:#f8faf6;padding:10px}.mini dt{font-size:10px}.mini dd{font-size:12px;font-weight:700;margin:2px 0 0}.card-link{font-size:13px;font-weight:700}.category-facts{grid-template-columns:repeat(4,minmax(0,1fr))}.choice .button{margin-right:14px}@media(max-width:700px){.job-grid{grid-template-columns:1fr}.mini{grid-template-columns:repeat(3,minmax(90px,1fr));overflow:auto}.category-facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style>
+</Page>
