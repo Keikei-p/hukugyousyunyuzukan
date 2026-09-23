@@ -34,4 +34,17 @@ for (const file of walk(dist)) {
 
 // Disable Jekyll processing for the uploaded static artifact.
 fs.writeFileSync(path.join(dist, '.nojekyll'), '');
-console.log('Prepared dist for GitHub Pages at ' + githubSite);
+
+const htmlFiles = walk(dist).filter(file => file.endsWith('.html'));
+for (const file of htmlFiles) {
+  const html = fs.readFileSync(file, 'utf8');
+  const badRootLink = html.match(/(?:href|src|action)="\/(?!\/|hukugyousyunyuzukan\/)/);
+  if (badRootLink) {
+    throw new Error('Unprefixed root link remains in ' + path.relative(dist, file) + ': ' + badRootLink[0]);
+  }
+}
+const home = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
+if (!home.includes(githubSite)) throw new Error('GitHub Pages canonical URL was not generated.');
+if (!home.includes(base + '/')) throw new Error('GitHub Pages base path was not applied.');
+
+console.log('Prepared and validated GitHub Pages output at ' + githubSite);
