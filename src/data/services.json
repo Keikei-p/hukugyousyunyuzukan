@@ -22,5 +22,17 @@
     "affiliateUrl": "",
     "description": "不要品の出品先を検討するためのフリマサービスの例です。",
     "checked": "2026-09-20"
+  },
+  {
+    "id": "creators-japan",
+    "name": "クリエイターズジャパン",
+    "url": "https://creators-jp.com/",
+    "affiliateUrl": "https://px.a8.net/svt/ejp?a8mat=4BCHZP+CM9S4A+4LJQ+5ZMCH",
+    "description": "動画編集を体系的に学びたい人向けのオンライン動画編集スクールです。受講内容・料金・サポート条件は公式サイトで確認してください。",
+    "checked": "2026-09-23",
+    "bannerImage": "https://www20.a8.net/svt/bgt?aid=260923669763&wid=002&eno=01&mid=s00000021455001006000&mc=1",
+    "bannerWidth": 468,
+    "bannerHeight": 60,
+    "trackingPixel": "https://www17.a8.net/0.gif?a8mat=4BCHZP+CM9S4A+4LJQ+5ZMCH"
   }
 ]
